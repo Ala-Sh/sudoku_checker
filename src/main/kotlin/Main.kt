@@ -127,7 +127,7 @@ fun isEmpty(sudokuPuzzle: List<List<Char>>):Boolean{
     }
     if (sortedSudokuPuzzle.first().first() ==sortedSudokuPuzzle.last().last() &&
         sortedSudokuPuzzle.last().last()=='-'){
-        return true
+        return false
     }
     return false
 }

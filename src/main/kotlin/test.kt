@@ -2,6 +2,8 @@ import org.example.sudokuChecker
 //by Ala
 fun main(){
     test_sudokuChecherCases()
+    //empty
+    //wrong chars
 
 }
 fun test_sudokuChecher(caseNumber:Int, case: String, result: Boolean, expectedResult: Boolean){
@@ -15,7 +17,7 @@ fun test_sudokuChecher(caseNumber:Int, case: String, result: Boolean, expectedRe
 fun test_sudokuChecherCases() {
     test_sudokuChecher(
         1,
-        "When the puzzle is solved and there are no repeats in each row, column or 3*3 sub group",
+        "When the puzzle is solved and there are no repeats in each row, column or 3*3 sub group return true",
         sudokuChecker(
             listOf(
                 listOf('5','3','4',    '6','7','8',    '9','1','2'),  // ✅ valid
@@ -36,7 +38,7 @@ fun test_sudokuChecherCases() {
 
     test_sudokuChecher(
         2,
-        "When the puzzle is not solved and there are no repeats in each row, column or 3*3 sub group",
+        "When the puzzle is not solved and there are no repeats in each row, column or 3*3 sub group return true",
         sudokuChecker(
             listOf(
                 listOf('5','3','-',    '-','7','-',    '-','-','-'),  // ✅ valid
@@ -57,7 +59,7 @@ fun test_sudokuChecherCases() {
 
     test_sudokuChecher(
         3,
-        "When the puzzle is not completelty solved and there are repeats in same rows only",
+        "When the puzzle is not completelty solved and there are repeats in same rows only return false",
         sudokuChecker(
             listOf(
                 listOf('5','3','-',    '-','7','-',    '-','3','-'),  // ❌ '3' repeated in row
@@ -78,7 +80,7 @@ fun test_sudokuChecherCases() {
 
     test_sudokuChecher(
         4,
-        "When the puzzle is not completelty solved and there are repeats in same columns only",
+        "When the puzzle is not completelty solved and there are repeats in same columns only return false",
         sudokuChecker(
             listOf(
                 listOf('5','3','-',    '-','7','-',    '-','-','-'),
@@ -101,7 +103,7 @@ fun test_sudokuChecherCases() {
 
     test_sudokuChecher(
         5,
-        "When the puzzle is not completelty solved and there are repeats in same 3*3 subgrids only",
+        "When the puzzle is not completelty solved and there are repeats in same 3*3 subgrids only return false",
         sudokuChecker(
             listOf(
                 listOf('5','3','-',    '-','7','-',    '-','-','-'),  // ✅ valid
@@ -122,7 +124,7 @@ fun test_sudokuChecherCases() {
 
     test_sudokuChecher(
         6,
-        "When the puzzle is solved and there are multible violations in rows, columns and 3*3 subgrids",
+        "When the puzzle is solved and there are multible violations in rows, columns and 3*3 subgrids return false",
         sudokuChecker(
             listOf(
                 listOf('5','3','4',    '6','7','8',    '9','1','2'),  // ✅ valid
@@ -148,7 +150,7 @@ fun test_sudokuChecherCases() {
 
     test_sudokuChecher(
         7,
-        "When the puzzle is completed but there are some wrong numbers (not in 1,9)",
+        "When the puzzle is completed but there are some wrong numbers (not in 1,9) return false",
         sudokuChecker(
             listOf(
                 //change it
@@ -156,24 +158,20 @@ fun test_sudokuChecherCases() {
                 listOf('6','7','2',    '1','9','5',    '3','4','8'),  // ✅ valid
                 listOf('1','9','8',    '3','4','2',    '5','6','7'),  // ✅ valid
 
-                listOf('8','5','9',    '7','6','1',    '4','2','5'),  // ❌ '5' repeated
-                listOf('4','2','6',    '8','5','3',    '7','2','1'),  // ❌ '2' repeated
-                listOf('7','1','3',    '9','2','4',    '8','5','7'),  // ❌ '7' repeated
+                listOf('8','5','9',    '7','6','1',    '4','2','0'),  // ❌ '0' found
+                listOf('4','2','6',    '8','5','3',    '7','2','1'),  //
+                listOf('7','1','3',    '9','2','4',    '8','5','7'),  //
 
-                listOf('9','6','1',    '5','3','7',    '2','8','9'),  // ❌ '9' repeated
+                listOf('9','6','1',    '5','3','7',    '2','8','9'),  //
                 listOf('2','8','7',    '4','1','9',    '6','3','5'),  // ✅ valid
-                listOf('3','4','5',    '2','8','6',    '1','7','3')   // ❌ '3' repeated
-                //columns                                  ❌  ❌
-                //columns                          repeated 2  repeated 7 and 5
-                //3*3 subgrids                             ❌  ❌
-                //3*3 subgrids                            repeated 3
+                listOf('3','4','5',    '2','8','6',    '1','7','0')   // ❌ '0' found
             )
         ),
         false
     )
     test_sudokuChecher(
         8,
-        "When the puzzle is not completed and there are some wrong numbers or charechters (not in 1,9)",
+        "When the puzzle is not completed and there are some wrong charechters (not in 1,9) return false",
         sudokuChecker(
             listOf(
                 listOf('5','3','4',    '6','7','8',    '9','1','2'),  // ✅ valid
@@ -181,7 +179,7 @@ fun test_sudokuChecherCases() {
                 listOf('1','9','8',    '3','4','2',    '5','6','7'),  // ✅ valid
 
                 listOf('8','5','9',    '7','6','1',    '4','2','#'),  // ❌ invalid character '#'
-                listOf('4','2','6',    '8','5','3',    '7','0','1'),  // ❌ invalid number '0'
+                listOf('4','2','6',    '8','5','3',    '7','6','1'),  // ✅ valid
                 listOf('7','1','3',    '9','2','4',    '8','5','7'),  // ✅ valid
 
                 listOf('9','6','1',    '5','3','7',    '2','8','9'),  // ✅ valid
@@ -194,7 +192,7 @@ fun test_sudokuChecherCases() {
 
     test_sudokuChecher(
         9,
-        "When the puzzle is completely empty",
+        "When the puzzle is completely empty  return true",
         sudokuChecker(
             listOf(
                 listOf('-','-','-',    '-','-','-',    '-','-','-'),
@@ -210,12 +208,12 @@ fun test_sudokuChecherCases() {
                 listOf('-','-','-',    '-','-','-',    '-','-','-')
             )
         ),
-        false
+        true
     )
 
     test_sudokuChecher(
         10,
-        "When the puzzle has wrong dimensions",
+        "When the puzzle has wrong dimensions, number of elements in each row is not equal return false",
         sudokuChecker(
             listOf(
                 listOf('5','3','4',    '6','7','8',    '9','1','2'),  // ✅ valid (9 elements)
@@ -228,7 +226,7 @@ fun test_sudokuChecherCases() {
 
                 listOf('9','6','1',    '5','3','7',    '2','8','4'),  // ✅ valid
                 listOf('2','8','7',    '4','1','9',    '6','3','5'),  // ✅ valid
-                // Missing 9th row                                       ❌ only 8 rows
+                listOf('2','8','7',    '4','1','9',    '6','3','5'),  // ✅ valid
             )
         ),
         false
@@ -236,7 +234,70 @@ fun test_sudokuChecherCases() {
 
     test_sudokuChecher(
         11,
-        "When the puzzle is completely solved with 16*16 dimensions",
+        "When the puzzle has wrong dimensions, number of rows doesn't equal number of columns return false",
+        sudokuChecker(
+            listOf(
+                listOf('5','3','4',    '6','7','8',    '9','1','2'),  // ✅ valid (9 elements)
+                listOf('6','7','2',    '1','9','5',    '3','4','8'),  // ✅ valid
+                listOf('1','9','8',    '3','4','2',    '5','6','7'),  // ✅ valid
+
+                listOf('8','5','9',    '7','6','1',    '4','2','3'),  // ✅ valid
+                listOf('4','2','6',    '8','5','3',    '7','9','1'),  // ✅ valid
+                listOf('7','1','3',    '9','2','4',    '8','5','6'),  // ✅ valid
+
+                listOf('9','6','1',    '5','3','7',    '2','8','4'),  // ✅ valid
+                listOf('2','8','7',    '4','1','9',    '6','3','5'),  // ✅ valid
+                // Missing 9th row                                       ❌ only 8 rows
+            )
+        ),
+        false
+    )
+    test_sudokuChecher(
+        12,
+        "When the puzzle has wrong dimensions, number of rows has no integer square root return false",
+        sudokuChecker(
+            listOf(
+                listOf('5','3','4',    '6','7','8',    '9','1','2'),  // ✅ valid (9 elements)
+                listOf('6','7','2',    '1','9','5',    '3','4','8'),  // ✅ valid
+                listOf('1','9','8',    '3','4','2',    '5','6','7'),  // ✅ valid
+
+                listOf('8','5','9',    '7','6','1',    '4','2','3'),  // ✅ valid
+                listOf('4','2','6',    '8','5','3',    '7','9','1'),  // ✅ valid
+                listOf('7','1','3',    '9','2','4',    '8','5','6'),  // ✅ valid
+
+                listOf('9','6','1',    '5','3','7',    '2','8','4'),  // ✅ valid
+                listOf('2','8','7',    '4','1','9',    '6','3','5'),  // ✅ valid
+                // Missing 9th row                                       ❌ only 8 rows
+            )
+        ),
+        false
+    )
+
+    test_sudokuChecher(
+        13,
+        "When the puzzle has wrong dimensions, number of columns has no integer square root return false",
+        sudokuChecker(
+            listOf(
+                listOf('5','3','4',    '6','7','8'),
+                listOf('6','7','2',    '1','9','5'),
+                listOf('1','9','8',    '3','4','2'),
+
+                listOf('8','5','9',    '7','6','1'),
+                listOf('4','2','6',    '8','5','3'),
+                listOf('7','1','3',    '9','2','4'),
+
+                listOf('9','6','1',    '5','3','7'),
+                listOf('2','8','7',    '4','1','9'),
+                listOf('2','8','7',    '4','1','9'),
+                //                ❌ only 6 columns
+            )
+        ),
+        false
+    )
+
+    test_sudokuChecher(
+        14,
+        "When the puzzle is completely solved with 16*16 dimensions return true",
         sudokuChecker(
             listOf(
                 listOf('1','2','3','4', '5','6','7','8', '9','A','B','C', 'D','E','F','G'),
@@ -264,8 +325,8 @@ fun test_sudokuChecherCases() {
     )
 
     test_sudokuChecher(
-        12,
-        "When the puzzle is solved wrongly with 16*16 dimensions",
+        16,
+        "When the puzzle is solved wrongly with 16*16 dimensions return false",
         sudokuChecker(
             listOf(
                 listOf('1','2','3','4', '5','6','7','8', '9','A','B','C', 'D','E','F','G'),
@@ -293,8 +354,8 @@ fun test_sudokuChecherCases() {
     )
 
     test_sudokuChecher(
-        13,
-        "When the puzzle is solved corectly with 4*4 dimensions",
+        17,
+        "When the puzzle is solved corectly with 4*4 dimensions return true",
         sudokuChecker(
             listOf(
                 listOf('1', '2', '3', '4'),
@@ -307,8 +368,8 @@ fun test_sudokuChecherCases() {
     )
 
     test_sudokuChecher(
-        14,
-        "When the puzzle is solved in a wrong way with 4*4 dimensions",
+        18,
+        "When the puzzle is solved in a wrong way with 4*4 dimensions return false",
         sudokuChecker(
             listOf(
                 listOf('1', '2', '3', '4'),
@@ -319,9 +380,23 @@ fun test_sudokuChecherCases() {
         ),
         false
     )
+
     test_sudokuChecher(
-        15,
-        "When the puzzle is solved in a wrong way with 25*25 dimensions",
+        19,
+        "When the puzzle is solved with chars outside its range in 4*4 dimensions return false",
+        sudokuChecker(
+            listOf(
+                listOf('1', '2', '3', '4'),
+                listOf('3', '2', '9', '2'),//9 is found
+                listOf('4', '3', '2', '1'),
+                listOf('2', '1', '7', '3')//7 is found
+            )
+        ),
+        false
+    )
+    test_sudokuChecher(
+        20,
+        "When the puzzle is solved in a wrong way with 25*25 dimensions return false",
         sudokuChecker(
             listOf(
                 listOf('1', '2', '3', '4', '5', '6', '7', '8', '9', 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P'),
@@ -352,5 +427,47 @@ fun test_sudokuChecherCases() {
             )
         ),
         false
+    )
+    test_sudokuChecher(
+        21,
+        "When the puzzle is not solved and is correct with 25*25 dimensions return true",
+        sudokuChecker(
+            listOf(
+                listOf('1', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-'),
+                listOf('-', '2', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-'),
+                listOf('-', '-', '3', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-'),
+                listOf('-', '-', '-', '4', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-'),
+                listOf('-', '-', '-', '-', '5', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-'),
+                listOf('-', '-', '-', '-', '-', '6', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-'),
+                listOf('-', '-', '-', '-', '-', '-', '7', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-'),
+                listOf('-', '-', '-', '-', '-', '-', '-', '8', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-'),
+                listOf('-', '-', '-', '-', '-', '-', '-', '-', '9', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-'),
+                listOf('-', '-', '-', '-', '-', '-', '-', '-', '-', 'A', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-'),
+                listOf('-', '-', '-', '-', '-', '-', '-', '-', '-', '-', 'B', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-'),
+                listOf('-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', 'C', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-'),
+                listOf('-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', 'D', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-'),
+                listOf('-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', 'E', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-'),
+                listOf('-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', 'F', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-'),
+                listOf('-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', 'G', '-', '-', '-', '-', '-', '-', '-', '-', '-'),
+                listOf('-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', 'H', '-', '-', '-', '-', '-', '-', '-', '-'),
+                listOf('-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', 'I', '-', '-', '-', '-', '-', '-', '-'),
+                listOf('-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', 'J', '-', '-', '-', '-', '-', '-'),
+                listOf('-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', 'K', '-', '-', '-', '-', '-'),
+                listOf('-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', 'L', '-', '-', '-', '-'),
+                listOf('-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', 'M', '-', '-', '-'),
+                listOf('-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', 'N', '-', '-'),
+                listOf('-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', 'O', '-'),
+                listOf('-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', 'P')
+            )
+        ),
+        true
+    )
+    test_sudokuChecher(
+        22,
+        "When the list is empty return false",
+        sudokuChecker(
+            listOf()
+        ),
+            false
     )
 }
