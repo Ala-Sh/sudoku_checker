@@ -1,6 +1,5 @@
 package org.example
 
-import org.w3c.dom.ranges.Range
 import kotlin.math.sqrt
 
 //TIP To <b>Run</b> code, press <shortcut actionId="Run"/> or
@@ -16,35 +15,71 @@ fun main() {
  * @see test_sudokuChecker() for test scenarios
  */
 fun sudokuChecker(sudokuPuzzle: List<List<Char>>):Boolean{
-    if(hasWrongDimensions(sudokuPuzzle)||containsWrongChar(sudokuPuzzle) || isEmpty(sudokuPuzzle)){
+    if(sudokuPuzzle.isNullOrEmpty()) {
         return false
     }
-    for(row in sudokuPuzzle){
-        if (containsDuplicate(row)){
-            return false
-        }
+    val numberOfRows=sudokuPuzzle.size
+    val squareRoot=sqrt(numberOfRows.toDouble())
+    if(squareRoot%1 !=0.0){
+        return false
     }
+    val validChars=validCharsGenerator(numberOfRows)
+
     for(index in sudokuPuzzle.indices){
-        var column=extractColumnList(index, sudokuPuzzle)
-        if(containsDuplicate(column)){
+        //check if all rows has the same number of elements with the number of columns
+        if(hasWrongDimensions(sudokuPuzzle[index],numberOfRows)){
             return false
         }
-    }
-    var theSubGridSize= sqrt(sudokuPuzzle.size.toDouble()).toInt()
-    var counterX=0
-    var counterY=0
-    var numberOfTimes=0
-    while(numberOfTimes< theSubGridSize && counterX<sudokuPuzzle.size){
-        while(counterY<sudokuPuzzle.size){
-            var subGrid=extactSubGridList(counterX,counterY,theSubGridSize,sudokuPuzzle)
-            if(containsDuplicate(subGrid)){
+
+        //if a column contains duplicates
+        val column:MutableList<Char> = mutableListOf()
+        var subGrid:MutableList<Char> = mutableListOf()
+        for(interiorIndex in sudokuPuzzle[index].indices) {
+
+
+            //if a row contains duplicates
+            if (containsWrongChar(sudokuPuzzle[index][interiorIndex], validChars) ||containsDuplicate(sudokuPuzzle[index], sudokuPuzzle[index][interiorIndex])){
                 return false
             }
-            counterY+=theSubGridSize
+
+            if ( column.size<numberOfRows) {
+                column.add(sudokuPuzzle[interiorIndex][index])
+            }
+            if(subGrid.size==numberOfRows
+                &&containsDuplicate(subGrid)){
+                return false
+            }
+            else if(subGrid.size==numberOfRows){
+                subGrid.clear()
+            }
+            /*var rowIndex=0
+            var columnIndex=0
+            if(index<squareRoot&&interiorIndex<squareRoot) {
+                subGrid = (0 until numberOfRows).map { i ->
+                    rowIndex = (index / squareRoot.toInt()) * squareRoot.toInt()
+                    columnIndex = (index % squareRoot.toInt()) * squareRoot.toInt()
+                    sudokuPuzzle[rowIndex][columnIndex]
+
+                }.toMutableList()
+            }*/
+
+//it's wrong
+            if(subGrid.size<numberOfRows
+                && index%(numberOfRows/squareRoot.toInt()) == 0
+                &&interiorIndex%(numberOfRows/squareRoot.toInt()) == 0){
+                subGrid=extactSubGridList(index,interiorIndex,squareRoot.toInt(),sudokuPuzzle)
+                if(subGrid.size!=numberOfRows){
+                    return false
+                }
+            }
         }
-        numberOfTimes++
-        counterX+=theSubGridSize
-        counterY=0
+        if(column.size==numberOfRows
+            &&containsDuplicate(column)){
+            return false
+        }
+
+        column.clear()
+
     }
     return true
 }
@@ -66,7 +101,49 @@ fun extactSubGridList(firstXIndex:Int, firstYIndex:Int, subGridSize:Int, sudokuP
     }
     return subGrid
 }
-fun extractColumnList(index:Int, sudokuPuzzle: List<List<Char>>):MutableList<Char>{
+/**
+ * returns true if the list passed contains duplicates
+ * and returns false if the list is valid
+ */
+fun containsDuplicate(theSubList: List<Char>, char:Char): Boolean{
+    if(theSubList.indexOf(char) != theSubList.lastIndexOf(char) && char!='-'){
+        return true
+    }
+    return false
+}
+fun containsDuplicate(theSubList: MutableList<Char>): Boolean{
+    for(char in theSubList) {
+        if(containsDuplicate(theSubList, char)){
+            return true
+        }
+    }
+    return false
+}
+
+/**
+ * returns false if the list doesn't contain any wrong char
+ * and returns true if the list contains any wrong char or the list is Null or empty
+ */
+fun containsWrongChar(element: Char, validChars:List<Char>):Boolean{
+    if(element !in validChars && element!='-'){
+        return true
+    }
+    return false
+}
+//checking if a row has the same size(number of columns) with the given size(number of rows)
+fun hasWrongDimensions(row: List<Char>,length:Int, ):Boolean{
+    if(row.size!=length || sqrt(row.size.toDouble())%1 !=0.0)
+        return true
+    return false
+}
+fun validCharsGenerator(numberOfRows:Int) :List<Char>{
+    if (numberOfRows <= 9) {
+        return ('1'..(numberOfRows.toString().first())).toList()
+    }
+    return('1'..'9') + ('A'..('A' + (numberOfRows - 10)))
+
+}
+/*fun extractColumnList(index:Int, sudokuPuzzle: List<List<Char>>):MutableList<Char>{
     val column:MutableList<Char> = mutableListOf()
     for(row in sudokuPuzzle){
         for(theIndex in row.indices){
@@ -79,47 +156,10 @@ fun extractColumnList(index:Int, sudokuPuzzle: List<List<Char>>):MutableList<Cha
         println("Column not found")
     }
     return column
-}
+}*/
 
-/**
- * returns true if the list passed contains duplicates
- * and returns false if the list is valid
- */
-fun containsDuplicate(theSubList: List<Char>): Boolean{
-    var theSortedList=theSubList.sorted()
-    for (index in theSortedList.indices){
-        if(index>0 && theSortedList[index] == theSortedList[index-1] && theSortedList[index] != '-'){
-            return true
-        }
-    }
-    return false
-}
 
-/**
- * returns false if the list doesn't contain any wrong char
- * and returns true if the list contains any wrong char or the list is Null or empty
- */
-fun containsWrongChar(sudokuPuzzle: List<List<Char>>):Boolean{
-    if(sudokuPuzzle.isNullOrEmpty())
-        return true
-    val validChars:List<Char>
-    if(sudokuPuzzle.size<=9){
-        validChars=('1'..(sudokuPuzzle.size.toString().first())).toList()
-    }
-    else{
-        validChars=('1'..'9') + ('A'..('A' + (sudokuPuzzle.size - 10)))
-    }
-    for (subList in sudokuPuzzle){
-        var elements=subList.toCharArray()
-        for (i in elements){
-            if(i !in validChars && i!='-'){
-                return true
-            }
-        }
-    }
-    return false
-}
-fun isEmpty(sudokuPuzzle: List<List<Char>>):Boolean{
+/*fun isEmpty(sudokuPuzzle: List<List<Char>>):Boolean{
     val sortedSudokuPuzzle:MutableList<List<Char>> = mutableListOf()
 
     for(row in sudokuPuzzle){
@@ -130,26 +170,6 @@ fun isEmpty(sudokuPuzzle: List<List<Char>>):Boolean{
         return false
     }
     return false
-}
+}*/
 
-fun hasWrongDimensions(sudokuPuzzle: List<List<Char>>):Boolean{
-    val squareRoot=sqrt(sudokuPuzzle.size.toDouble())
-    if(squareRoot%1 !=0.0){
-        return true
-    }
-    var firstLength=0
-    //checking if all rows have the same size
-    for(row in sudokuPuzzle){
-        var length=row.size
-        if(firstLength==0){
-            firstLength= length
-        }
-        else if(firstLength!=length)
-            return true
-    }
-    //checking if number of rows=number of columns
-    if(sudokuPuzzle.size!=firstLength){
-        return true
-    }
-    return false
-}
+
