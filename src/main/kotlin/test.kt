@@ -6,7 +6,7 @@ fun main(){
     //wrong chars
 
 }
-fun test_sudokuChecher(caseNumber:Int, case: String, result: Boolean, expectedResult: Boolean){
+fun test_sudokuChecker(caseNumber:Int, case: String, result: Boolean, expectedResult: Boolean){
     if(result==expectedResult){
         println("Success in case $caseNumber: $case")
     }
@@ -15,7 +15,7 @@ fun test_sudokuChecher(caseNumber:Int, case: String, result: Boolean, expectedRe
 
 }
 fun test_sudokuChecherCases() {
-    test_sudokuChecher(
+    test_sudokuChecker(
         1,
         "When the puzzle is solved and there are no repeats in each row, column or 3*3 sub group return true",
         sudokuChecker(
@@ -36,7 +36,7 @@ fun test_sudokuChecherCases() {
         true
     )
 
-    test_sudokuChecher(
+    test_sudokuChecker(
         2,
         "When the puzzle is not solved and there are no repeats in each row, column or 3*3 sub group return true",
         sudokuChecker(
@@ -57,7 +57,7 @@ fun test_sudokuChecherCases() {
         true
     )
 
-    test_sudokuChecher(
+    test_sudokuChecker(
         3,
         "When the puzzle is not completelty solved and there are repeats in same rows only return false",
         sudokuChecker(
@@ -78,7 +78,7 @@ fun test_sudokuChecherCases() {
         false
     )
 
-    test_sudokuChecher(
+    test_sudokuChecker(
         4,
         "When the puzzle is not completelty solved and there are repeats in same columns only return false",
         sudokuChecker(
@@ -101,7 +101,7 @@ fun test_sudokuChecherCases() {
         false
     )
 
-    test_sudokuChecher(
+    test_sudokuChecker(
         5,
         "When the puzzle is not completelty solved and there are repeats in same 3*3 subgrids only return false",
         sudokuChecker(
@@ -122,7 +122,7 @@ fun test_sudokuChecherCases() {
         false
     )
 
-    test_sudokuChecher(
+    test_sudokuChecker(
         6,
         "When the puzzle is solved and there are multible violations in rows, columns and 3*3 subgrids return false",
         sudokuChecker(
@@ -148,7 +148,7 @@ fun test_sudokuChecherCases() {
         false
     )
 
-    test_sudokuChecher(
+    test_sudokuChecker(
         7,
         "When the puzzle is completed but there are some wrong numbers (not in 1,9) return false",
         sudokuChecker(
@@ -169,7 +169,7 @@ fun test_sudokuChecherCases() {
         ),
         false
     )
-    test_sudokuChecher(
+    test_sudokuChecker(
         8,
         "When the puzzle is not completed and there are some wrong charechters (not in 1,9) return false",
         sudokuChecker(
@@ -190,7 +190,7 @@ fun test_sudokuChecherCases() {
         false
     )
 
-    test_sudokuChecher(
+    test_sudokuChecker(
         9,
         "When the puzzle is completely empty  return true",
         sudokuChecker(
@@ -211,7 +211,7 @@ fun test_sudokuChecherCases() {
         true
     )
 
-    test_sudokuChecher(
+    test_sudokuChecker(
         10,
         "When the puzzle has wrong dimensions, number of elements in each row is not equal return false",
         sudokuChecker(
@@ -232,7 +232,7 @@ fun test_sudokuChecherCases() {
         false
     )
 
-    test_sudokuChecher(
+    test_sudokuChecker(
         11,
         "When the puzzle has wrong dimensions, number of rows doesn't equal number of columns return false",
         sudokuChecker(
@@ -252,7 +252,7 @@ fun test_sudokuChecherCases() {
         ),
         false
     )
-    test_sudokuChecher(
+    test_sudokuChecker(
         12,
         "When the puzzle has wrong dimensions, number of rows has no integer square root return false",
         sudokuChecker(
@@ -273,7 +273,7 @@ fun test_sudokuChecherCases() {
         false
     )
 
-    test_sudokuChecher(
+    test_sudokuChecker(
         13,
         "When the puzzle has wrong dimensions, number of columns has no integer square root return false",
         sudokuChecker(
@@ -295,7 +295,7 @@ fun test_sudokuChecherCases() {
         false
     )
 
-    test_sudokuChecher(
+    test_sudokuChecker(
         14,
         "When the puzzle is completely solved with 16*16 dimensions return true",
         sudokuChecker(
@@ -324,7 +324,7 @@ fun test_sudokuChecherCases() {
         true
     )
 
-    test_sudokuChecher(
+    test_sudokuChecker(
         16,
         "When the puzzle is solved wrongly with 16*16 dimensions return false",
         sudokuChecker(
@@ -353,7 +353,7 @@ fun test_sudokuChecherCases() {
         false
     )
 
-    test_sudokuChecher(
+    test_sudokuChecker(
         17,
         "When the puzzle is solved corectly with 4*4 dimensions return true",
         sudokuChecker(
@@ -367,7 +367,7 @@ fun test_sudokuChecherCases() {
         true
     )
 
-    test_sudokuChecher(
+    test_sudokuChecker(
         18,
         "When the puzzle is solved in a wrong way with 4*4 dimensions return false",
         sudokuChecker(
@@ -381,7 +381,7 @@ fun test_sudokuChecherCases() {
         false
     )
 
-    test_sudokuChecher(
+    test_sudokuChecker(
         19,
         "When the puzzle is solved with chars outside its range in 4*4 dimensions return false",
         sudokuChecker(
@@ -394,7 +394,7 @@ fun test_sudokuChecherCases() {
         ),
         false
     )
-    test_sudokuChecher(
+    test_sudokuChecker(
         20,
         "When the puzzle is solved in a wrong way with 25*25 dimensions return false",
         sudokuChecker(
@@ -428,7 +428,7 @@ fun test_sudokuChecherCases() {
         ),
         false
     )
-    test_sudokuChecher(
+    test_sudokuChecker(
         21,
         "When the puzzle is not solved and is correct with 25*25 dimensions return true",
         sudokuChecker(
@@ -462,7 +462,7 @@ fun test_sudokuChecherCases() {
         ),
         true
     )
-    test_sudokuChecher(
+    test_sudokuChecker(
         22,
         "When the list is empty return false",
         sudokuChecker(

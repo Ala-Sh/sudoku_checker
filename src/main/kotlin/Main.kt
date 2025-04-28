@@ -15,7 +15,7 @@ fun main() {
  * @see test_sudokuChecker() for test scenarios
  */
 fun sudokuChecker(sudokuPuzzle: List<List<Char>>):Boolean{
-    if(sudokuPuzzle.isNullOrEmpty()) {
+    if(sudokuPuzzle.isEmpty()) {
         return false
     }
     val numberOfRows=sudokuPuzzle.size
@@ -67,7 +67,7 @@ fun sudokuChecker(sudokuPuzzle: List<List<Char>>):Boolean{
             if(subGrid.size<numberOfRows
                 && index%(numberOfRows/squareRoot.toInt()) == 0
                 &&interiorIndex%(numberOfRows/squareRoot.toInt()) == 0){
-                subGrid=extactSubGridList(index,interiorIndex,squareRoot.toInt(),sudokuPuzzle)
+                subGrid=extractSubGridList(index,interiorIndex,squareRoot.toInt(),sudokuPuzzle)
                 if(subGrid.size!=numberOfRows){
                     return false
                 }
@@ -84,7 +84,7 @@ fun sudokuChecker(sudokuPuzzle: List<List<Char>>):Boolean{
     return true
 }
 
-fun extactSubGridList(firstXIndex:Int, firstYIndex:Int, subGridSize:Int, sudokuPuzzle: List<List<Char>>)
+fun extractSubGridList(firstXIndex:Int, firstYIndex:Int, subGridSize:Int, sudokuPuzzle: List<List<Char>>)
 :MutableList<Char>{
     val subGrid:MutableList<Char> = mutableListOf()
     for(rowIndex in sudokuPuzzle.indices){
@@ -131,7 +131,7 @@ fun containsWrongChar(element: Char, validChars:List<Char>):Boolean{
     return false
 }
 //checking if a row has the same size(number of columns) with the given size(number of rows)
-fun hasWrongDimensions(row: List<Char>,length:Int, ):Boolean{
+fun hasWrongDimensions(row: List<Char>,length:Int ):Boolean{
     if(row.size!=length || sqrt(row.size.toDouble())%1 !=0.0)
         return true
     return false
